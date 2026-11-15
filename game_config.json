@@ -1,0 +1,111 @@
+{
+  "title": "The Locked Library",
+  "intro": "You wake on a cold wooden floor. The air smells of dust and old paper. You are locked inside a library: a heavy oak desk with a drawer, a tall bookshelf, a large framed painting, and a sturdy door with a four-digit keypad. Somewhere in this room is the way out.",
+  "help": "Type what you want to do in plain language, e.g. \"examine the desk\", \"take the note\", \"try 123 on the drawer\", \"use the key on the safe\", \"what's in my inventory?\". Ask for a hint if you get stuck.",
+  "secrets": ["385", "7392"],
+  "objects": {
+    "desk": {
+      "name": "desk",
+      "aliases": ["desk", "writing desk", "oak desk", "table"],
+      "visible": true,
+      "examine": "A heavy oak desk. A handwritten note lies on the blotter, and a narrow drawer sits beneath the top.",
+      "on_examine": {"reveal_items": ["note"]}
+    },
+    "bookshelf": {
+      "name": "bookshelf",
+      "aliases": ["bookshelf", "shelf", "shelves", "bookcase"],
+      "visible": true,
+      "examine": "A tall bookshelf crammed with dusty volumes. Three red books stand out from the rest.",
+      "on_examine": {"reveal_objects": ["books"]}
+    },
+    "books": {
+      "name": "red books",
+      "aliases": ["books", "book", "red books", "red book", "volumes", "spines"],
+      "visible": false,
+      "examine": "On the spines of the three red books someone has inked numbers by hand. From left to right they read: 3, 8 and 5."
+    },
+    "painting": {
+      "name": "painting",
+      "aliases": ["painting", "picture", "portrait", "canvas", "frame", "oil painting"],
+      "visible": true,
+      "examine": "A large oil painting of a ship in a storm. The heavy frame looks as if it could swing away from the wall.",
+      "on_search": {
+        "text": "You swing the heavy frame aside. Set into the wall behind it is a small steel safe with a keyhole.",
+        "empty_text": "You have already looked behind the painting; only the safe is there.",
+        "reveal_objects": ["wall_safe"]
+      }
+    },
+    "drawer": {
+      "name": "drawer",
+      "aliases": ["drawer", "desk drawer", "narrow drawer"],
+      "visible": true,
+      "examine": "A narrow drawer with a three-digit combination lock.",
+      "unlocked_examine": "The drawer stands open. It is empty now apart from dust.",
+      "lock": {
+        "type": "code",
+        "solution": "385",
+        "locked_text": "The drawer is locked. It has a three-digit combination lock.",
+        "wrong_text": "The dials click into place, but the drawer stays shut. That is not the right combination.",
+        "unlock_text": "The lock springs open with a soft click. Inside the drawer lies a small brass key.",
+        "reveal_items": ["brass_key"]
+      }
+    },
+    "wall_safe": {
+      "name": "wall safe",
+      "aliases": ["safe", "wall safe", "steel safe", "small safe"],
+      "visible": false,
+      "examine": "A small steel safe set into the wall. It has a keyhole.",
+      "unlocked_examine": "The safe door hangs open.",
+      "lock": {
+        "type": "item",
+        "item": "brass_key",
+        "locked_text": "The safe is locked. It has a keyhole.",
+        "wrong_text": "That does not fit the keyhole.",
+        "unlock_text": "The key turns and the safe swings open. Inside is a folded slip of paper.",
+        "reveal_items": ["paper"]
+      }
+    },
+    "door": {
+      "name": "door",
+      "aliases": ["door", "exit", "keypad", "oak door", "heavy door"],
+      "visible": true,
+      "examine": "A sturdy door with a keypad that takes four digits.",
+      "unlocked_examine": "The door stands open.",
+      "lock": {
+        "type": "code",
+        "solution": "7392",
+        "locked_text": "The door is firmly locked. The keypad beside it waits for four digits.",
+        "wrong_text": "The keypad buzzes angrily. Wrong code.",
+        "unlock_text": "The keypad chimes green and the bolt slides back. The door swings open. You are free!",
+        "win": true
+      }
+    }
+  },
+  "items": {
+    "note": {
+      "name": "handwritten note",
+      "aliases": ["note", "handwritten note", "letter", "scrap of paper"],
+      "description": "The note reads: \"The red books know my drawer's number. Read them from left to right.\""
+    },
+    "brass_key": {
+      "name": "brass key",
+      "aliases": ["brass key", "key", "small key", "keys"],
+      "description": "A small brass key, warm from the drawer. It looks like it would fit a small lock."
+    },
+    "paper": {
+      "name": "slip of paper",
+      "aliases": ["slip of paper", "folded slip", "slip", "paper", "folded paper"],
+      "description": "Written in shaky handwriting: \"7392 - the way out.\""
+    }
+  },
+  "hints": [
+    {"when": "note_hidden", "text": "The desk might hold something worth reading."},
+    {"when": "books_hidden", "text": "The bookshelf deserves a closer look."},
+    {"when": "drawer_locked", "text": "The note and the red books belong together. Try the numbers on the drawer."},
+    {"when": "key_not_taken", "text": "Something useful is in the open drawer. Take it."},
+    {"when": "safe_hidden", "text": "A painting this heavy might hide something behind it."},
+    {"when": "safe_locked", "text": "You are carrying something that fits a keyhole."},
+    {"when": "paper_not_taken", "text": "Take the paper from the open safe."},
+    {"when": "ready", "text": "You have everything you need. Try the paper's number on the door."}
+  ]
+}
